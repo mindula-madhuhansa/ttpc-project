@@ -1,13 +1,9 @@
 package com.ttpc;
 
-import com.opencsv.CSVReader;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TicketIssuingWindow extends JFrame implements ActionListener {
 
@@ -31,7 +27,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
     JTextField fullAmountTextField = new JTextField();
     JButton backButton = new JButton();
     JButton proceedButton = new JButton();
-    JSeparator hSeparator = new JSeparator(JSeparator.HORIZONTAL);
+//    JSeparator hSeparator = new JSeparator(JSeparator.HORIZONTAL);
 
     TicketIssuingWindow(){
         this.setVisible(true);

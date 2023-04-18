@@ -1,8 +1,5 @@
 package com.ttpc;
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
