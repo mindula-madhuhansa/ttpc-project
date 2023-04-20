@@ -180,7 +180,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener, Mouse
             new WelcomeWindow();
         }
         if (e.getSource() == proceedButton){
-
+            dispose();
         }
 
     }
