@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class StationDatabaseReader {
-    public ArrayList<StationDetails> readCSV(String filepath){
+    public ArrayList<StationDetails> readCSV(String filepath) {
         ArrayList<StationDetails> stations = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(filepath))){
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             String line;
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 StationDetails stationDetails = new StationDetails();
                 stationDetails.setStationName((values[0]));
@@ -20,7 +20,7 @@ public class StationDatabaseReader {
                 stationDetails.setThirdClassPrice(Double.parseDouble(values[4]));
                 stations.add(stationDetails);
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return stations;

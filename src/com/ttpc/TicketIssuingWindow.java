@@ -3,12 +3,9 @@ package com.ttpc;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
-public class TicketIssuingWindow extends JFrame implements ActionListener, MouseListener {
+public class TicketIssuingWindow extends JFrame implements ActionListener {
 
     JPanel stationPanel = new JPanel();
     JPanel classPanel = new JPanel();
@@ -28,33 +25,35 @@ public class TicketIssuingWindow extends JFrame implements ActionListener, Mouse
     JLabel fullAmountLabel = new JLabel();
     JTextField halfAmountTextField = new JTextField();
     JTextField fullAmountTextField = new JTextField();
-    JButton backButton = new JButton();
-    JButton proceedButton = new JButton();
+    ButtonComponent startButton = new ButtonComponent("Start");
+    ButtonComponent totalButton = new ButtonComponent("Total");
+    ButtonComponent helpButton = new ButtonComponent("Help");
+    ButtonComponent aboutButton = new ButtonComponent("About");
 //    JSeparator hSeparator = new JSeparator(JSeparator.HORIZONTAL);
 
-    TicketIssuingWindow(){
+    TicketIssuingWindow() {
         this.setVisible(true);
         this.setResizable(false);
-        this.setSize(430, 550);
+        this.setSize(430, 580);
         this.setTitle("Train Ticket Price Calculator");
         this.setLocationRelativeTo(null);
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setBackground(Color.WHITE);
+        this.getContentPane().setBackground(Color.GRAY);
         this.add(stationPanel);
         this.add(classPanel);
         this.add(amountPanel);
         this.add(buttonPanel);
 
-        Border marginBorder = BorderFactory.createEmptyBorder(10,10,10,10);
-        Border lineBorder = BorderFactory.createLineBorder(Color.BLACK,2);
+        Border marginBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        Border lineBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
         Border compoundBorder = BorderFactory.createCompoundBorder(lineBorder, marginBorder);
 
         //destination label and station list combobox
-        stationPanel.setBounds(30,20,360,100);
-        stationPanel.setBackground(Color.WHITE);
+        stationPanel.setBounds(30, 20, 360, 100);
+        stationPanel.setBackground(Color.GRAY);
         stationPanel.setBorder(compoundBorder);
-        stationPanel.setLayout(new GridLayout(2,1,10,10));
+        stationPanel.setLayout(new GridLayout(2, 1, 10, 10));
         stationPanel.add(destinationLabel);
         stationPanel.add(stationComboBox);
 //        stationPanel.add(hSeparator);
@@ -65,17 +64,19 @@ public class TicketIssuingWindow extends JFrame implements ActionListener, Mouse
 
         String filepath = "src/res/stationDetails.csv";
         StationDatabaseReader csvReader = new StationDatabaseReader();
-        for (StationDetails stationDetails : csvReader.readCSV(filepath)){
+        for (StationDetails stationDetails : csvReader.readCSV(filepath)) {
             stationComboBox.addItem(stationDetails.getStationName());
         }
-        stationComboBox.setFont(new Font("Roboto", Font.PLAIN, 14));
-        stationComboBox.addMouseListener(this);
+        stationComboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
+        stationComboBox.setBackground(Color.WHITE);
+        stationComboBox.setFocusable(false);
+        stationComboBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //class label and three radio buttons
-        classPanel.setBounds(30,140,360,140);
-        classPanel.setBackground(Color.WHITE);
+        classPanel.setBounds(30, 140, 360, 140);
+        classPanel.setBackground(Color.GRAY);
         classPanel.setBorder(compoundBorder);
-        classPanel.setLayout(new GridLayout(4,1,10,10));
+        classPanel.setLayout(new GridLayout(4, 1, 10, 10));
         classPanel.add(classLabel);
         classPanel.add(firstClassRadioButton);
         classPanel.add(secondClassRadioButton);
@@ -88,29 +89,32 @@ public class TicketIssuingWindow extends JFrame implements ActionListener, Mouse
 
         firstClassRadioButton.setText("First Class");
         firstClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+        firstClassRadioButton.setForeground(Color.BLACK);
         firstClassRadioButton.setOpaque(false);
-        firstClassRadioButton.addMouseListener(this);
+        firstClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         secondClassRadioButton.setText("Second Class");
         secondClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+        secondClassRadioButton.setForeground(Color.BLACK);
         secondClassRadioButton.setOpaque(false);
-        secondClassRadioButton.addMouseListener(this);
+        secondClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         thirdClassRadioButton.setText("Third Class");
         thirdClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+        thirdClassRadioButton.setForeground(Color.BLACK);
         thirdClassRadioButton.setOpaque(false);
         thirdClassRadioButton.setSelected(true);
-        thirdClassRadioButton.addMouseListener(this);
+        thirdClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         classRadioButtons.add(firstClassRadioButton);
         classRadioButtons.add(secondClassRadioButton);
         classRadioButtons.add(thirdClassRadioButton);
 
         //amount label and half and full labels and textFields
-        amountPanel.setBounds(30, 300, 360,120);
-        amountPanel.setBackground(Color.WHITE);
+        amountPanel.setBounds(30, 300, 360, 120);
+        amountPanel.setBackground(Color.GRAY);
         amountPanel.setBorder(compoundBorder);
-        amountPanel.setLayout(new GridLayout(3,1));
+        amountPanel.setLayout(new GridLayout(3, 1));
         amountPanel.add(amountLabel);
         amountPanel.add(halfFullAmountLabelPanel);
         amountPanel.add(halfFullAmountTextFieldPanel);
@@ -118,22 +122,25 @@ public class TicketIssuingWindow extends JFrame implements ActionListener, Mouse
 
         amountLabel.setText("Amount");
         amountLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+        amountLabel.setForeground(Color.BLACK);
 
-        halfFullAmountLabelPanel.setBounds(30, 300, 360,100);
-        halfFullAmountLabelPanel.setBackground(Color.WHITE);
-        halfFullAmountLabelPanel.setLayout(new GridLayout(1,2,10,10));
+        halfFullAmountLabelPanel.setBounds(30, 300, 360, 100);
+        halfFullAmountLabelPanel.setBackground(Color.GRAY);
+        halfFullAmountLabelPanel.setLayout(new GridLayout(1, 2, 10, 10));
 
         halfFullAmountLabelPanel.add(halfAmountLabel);
         halfFullAmountLabelPanel.add(fullAmountLabel);
 
         halfAmountLabel.setText("Half");
         halfAmountLabel.setFont(new Font("Roboto", Font.BOLD, 14));
+        halfAmountLabel.setForeground(Color.BLACK);
         fullAmountLabel.setText("Full");
+        fullAmountLabel.setForeground(Color.BLACK);
         fullAmountLabel.setFont(new Font("Roboto", Font.BOLD, 14));
 
-        halfFullAmountTextFieldPanel.setBounds(30, 340, 360,100);
-        halfFullAmountTextFieldPanel.setBackground(Color.WHITE);
-        halfFullAmountTextFieldPanel.setLayout(new GridLayout(1,2,10,10));
+        halfFullAmountTextFieldPanel.setBounds(30, 340, 360, 100);
+        halfFullAmountTextFieldPanel.setBackground(Color.GRAY);
+        halfFullAmountTextFieldPanel.setLayout(new GridLayout(1, 2, 10, 10));
 
         halfFullAmountTextFieldPanel.add(halfAmountTextField);
         halfFullAmountTextFieldPanel.add(fullAmountTextField);
@@ -141,89 +148,45 @@ public class TicketIssuingWindow extends JFrame implements ActionListener, Mouse
         halfAmountTextField.setText("0");
         halfAmountTextField.setFont(new Font("Roboto", Font.PLAIN, 16));
         halfAmountTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        halfAmountTextField.setForeground(Color.BLACK);
+
         fullAmountTextField.setText("1");
         fullAmountTextField.setFont(new Font("Roboto", Font.PLAIN, 16));
         fullAmountTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+        fullAmountTextField.setForeground(Color.BLACK);
 
         //back button and proceed button
-        buttonPanel.setBounds(30, 450, 360,40);
-        buttonPanel.setBackground(Color.WHITE);
-        buttonPanel.setLayout(new GridLayout(1,2,10,10));
-        buttonPanel.add(backButton);
-        buttonPanel.add(proceedButton);
-
-        backButton.setText("Back");
-        backButton.setFont(new Font("Roboto", Font.BOLD, 15));
-        backButton.setForeground(Color.WHITE);
-        backButton.setBackground(Color.BLACK);
-        backButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-        backButton.setFocusable(false);
-        backButton.addActionListener(this);
-        backButton.addMouseListener(this);
-
-        proceedButton.setText("Proceed");
-        proceedButton.setFont(new Font("Roboto", Font.BOLD, 15));
-        proceedButton.setForeground(Color.WHITE);
-        proceedButton.setBackground(Color.BLACK);
-        proceedButton.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-        proceedButton.setFocusable(false);
-        proceedButton.addActionListener(this);
-        proceedButton.addMouseListener(this);
+        buttonPanel.setBounds(30, 450, 360, 80);
+        buttonPanel.setBackground(Color.GRAY);
+        buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        buttonPanel.add(startButton);
+        buttonPanel.add(totalButton);
+        buttonPanel.add(helpButton);
+        buttonPanel.add(aboutButton);
+        
+        startButton.addActionListener(this);
+        totalButton.addActionListener(this);
+        helpButton.addActionListener(this);
+        aboutButton.addActionListener(this);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == backButton){
-            dispose();
-            new WelcomeWindow();
+        if (e.getSource() == startButton){
+            JOptionPane.showMessageDialog(this,"Ticket Issued", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            
+        } else if (e.getSource() == totalButton) {
+            JOptionPane.showMessageDialog(this,"Total Tickets", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            
+        } else if (e.getSource() == helpButton) {
+            JOptionPane.showMessageDialog(this,"This is help", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            
+        } else if (e.getSource() == aboutButton) {
+            JOptionPane.showMessageDialog(this,"This is about", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            
         }
-        if (e.getSource() == proceedButton){
-            dispose();
-        }
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        if (e.getSource() == backButton){
-            backButton.setForeground(Color.BLACK);
-            backButton.setBackground(Color.WHITE);
-            backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        } else if (e.getSource() == proceedButton) {
-            proceedButton.setForeground(Color.BLACK);
-            proceedButton.setBackground(Color.WHITE);
-            proceedButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        }else{
-            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        }
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        if (e.getSource() == backButton){
-            backButton.setForeground(Color.WHITE);
-            backButton.setBackground(Color.BLACK);
-            backButton.setCursor(Cursor.getDefaultCursor());
-        } else if (e.getSource() == proceedButton) {
-            proceedButton.setForeground(Color.WHITE);
-            proceedButton.setBackground(Color.BLACK);
-            proceedButton.setCursor(Cursor.getDefaultCursor());
-        }else{
-            setCursor(Cursor.getDefaultCursor());
-        }
-    }
 }
