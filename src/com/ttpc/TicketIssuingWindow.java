@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TicketIssuingWindow extends JFrame implements ActionListener {
@@ -39,7 +41,6 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
 //    JSeparator hSeparator = new JSeparator(JSeparator.HORIZONTAL);
 
     TicketIssuingWindow() {
-        this.setVisible(true);
         this.setResizable(false);
         this.setSize(430, 580);
         this.setTitle("Train Ticket Price Calculator");
@@ -104,18 +105,21 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         firstClassRadioButton.setText("First Class");
         firstClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
         firstClassRadioButton.setForeground(Color.BLACK);
+        firstClassRadioButton.setFocusable(false);
         firstClassRadioButton.setOpaque(false);
         firstClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         secondClassRadioButton.setText("Second Class");
         secondClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
         secondClassRadioButton.setForeground(Color.BLACK);
+        secondClassRadioButton.setFocusable(false);
         secondClassRadioButton.setOpaque(false);
         secondClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         thirdClassRadioButton.setText("Third Class");
         thirdClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
         thirdClassRadioButton.setForeground(Color.BLACK);
+        thirdClassRadioButton.setFocusable(false);
         thirdClassRadioButton.setOpaque(false);
         thirdClassRadioButton.setSelected(true);
         thirdClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -183,18 +187,18 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         helpButton.addActionListener(this);
         aboutButton.addActionListener(this);
 
+        this.setVisible(true);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-
             int destinationIndex = stationComboBox.getSelectedIndex();
             double distance = distances.get(destinationIndex) ;
             String stationName = stationNames.get(destinationIndex);
             int halfTicketsAmount = Integer.parseInt(halfAmountTextField.getText());
             int fullTicketsAmount = Integer.parseInt(fullAmountTextField.getText());
-            System.out.println(fullTicketsAmount);
 
             int trainClass = 0;
             double ticketPrice = 0;
@@ -221,7 +225,14 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, priceCalculator, "TTPC", JOptionPane.INFORMATION_MESSAGE);
 
         } else if (e.getSource() == totalButton) {
-            JOptionPane.showMessageDialog(this, "Total Tickets", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            String filepath = "src/res/tickets.txt";
+            File file = new File(filepath);
+            if(file.exists()){
+                this.dispose();
+                new TotalTicketsWindow();
+            }else{
+                JOptionPane.showMessageDialog(this, "Issued tickets file does not exist.", "TTPC", JOptionPane.ERROR_MESSAGE);
+            }
 
         } else if (e.getSource() == helpButton) {
             JOptionPane.showMessageDialog(this, "This is help", "TTPC", JOptionPane.INFORMATION_MESSAGE);
@@ -230,6 +241,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "This is about", "TTPC", JOptionPane.INFORMATION_MESSAGE);
 
         }
+
 
     }
 

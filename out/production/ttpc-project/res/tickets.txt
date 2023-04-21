@@ -1,0 +1,42 @@
+Issued date: 21-04-2023 22:53:05
+From: Colombo Fort
+To: Agbopura
+Trip Distance: 251.96km
+Class: 3
+Total Price: LKR 420.0
+
+Issued date: 21-04-2023 22:53:06
+From: Colombo Fort
+To: Agbopura
+Trip Distance: 251.96km
+Class: 3
+Total Price: LKR 420.0
+
+Issued date: 21-04-2023 22:53:07
+From: Colombo Fort
+To: Agbopura
+Trip Distance: 251.96km
+Class: 3
+Total Price: LKR 420.0
+
+Issued date: 21-04-2023 22:55:16
+From: Colombo Fort
+To: Agbopura
+Trip Distance: 251.96km
+Class: 3
+Total Price: LKR 420.0
+
+Issued date: 21-04-2023 23:05:06
+From: Colombo Fort
+To: Agbopura
+Trip Distance: 251.96km
+Class: 3
+Total Price: LKR 420.0
+
+Issued date: 21-04-2023 23:05:39
+From: Colombo Fort
+To: Agbopura
+Trip Distance: 251.96km
+Class: 3
+Total Price: LKR 420.0
+
