@@ -4,10 +4,8 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.attribute.PosixFilePermission;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 
 public class PriceCalculator {
     public String stationName;
@@ -28,22 +26,22 @@ public class PriceCalculator {
         this.ticketClass = ticketClass;
     }
 
-    public void ticketDetailsSaver(){
-        try{
+    public void ticketDetailsSaver() {
+        try {
             String filePath = "src/res/tickets.txt";
             File ticketsFile = new File(filePath);
-            FileWriter ticketSaver = new FileWriter(ticketsFile,true);
+            FileWriter ticketSaver = new FileWriter(ticketsFile, true);
             ticketSaver.write("Issued date: " + localDateTime.format(dateTimeFormatter) + "\n");
             ticketSaver.write(this.toString());
             ticketSaver.close();
 
-        }catch (IOException e){
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(new TicketIssuingWindow(), "An error occurred: " + e.getMessage(), "TTPC", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         double finalTicketPrice = fullTicketsAmount * ticketPrice + (halfTicketsAmount * ticketPrice) * 0.5;
         return "From: Colombo Fort\n" +
                 "To: " + stationName + "\n" +
