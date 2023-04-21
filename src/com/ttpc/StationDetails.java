@@ -46,4 +46,5 @@ public class StationDetails {
     public void setThirdClassPrice(double thirdClassPrice) {
         this.thirdClassPrice = thirdClassPrice;
     }
+
 }

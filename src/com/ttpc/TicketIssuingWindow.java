@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class TicketIssuingWindow extends JFrame implements ActionListener {
 
@@ -29,6 +30,12 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
     ButtonComponent totalButton = new ButtonComponent("Total");
     ButtonComponent helpButton = new ButtonComponent("Help");
     ButtonComponent aboutButton = new ButtonComponent("About");
+    ArrayList<String> stationNames = new ArrayList<>();
+    ArrayList<Double> distances = new ArrayList<>();
+    ArrayList<Double> firstClassPrices = new ArrayList<>();
+    ArrayList<Double> secondClassPrices = new ArrayList<>();
+    ArrayList<Double> thirdClassPrices = new ArrayList<>();
+
 //    JSeparator hSeparator = new JSeparator(JSeparator.HORIZONTAL);
 
     TicketIssuingWindow() {
@@ -66,7 +73,14 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         StationDatabaseReader csvReader = new StationDatabaseReader();
         for (StationDetails stationDetails : csvReader.readCSV(filepath)) {
             stationComboBox.addItem(stationDetails.getStationName());
+            stationNames.add(stationDetails.getStationName());
+            distances.add(stationDetails.getDistance());
+            firstClassPrices.add(stationDetails.getFirstClassPrice());
+            secondClassPrices.add(stationDetails.getSecondClassPrice());
+            thirdClassPrices.add(stationDetails.getThirdClassPrice());
         }
+
+
         stationComboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
         stationComboBox.setBackground(Color.WHITE);
         stationComboBox.setFocusable(false);
@@ -163,7 +177,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         buttonPanel.add(totalButton);
         buttonPanel.add(helpButton);
         buttonPanel.add(aboutButton);
-        
+
         startButton.addActionListener(this);
         totalButton.addActionListener(this);
         helpButton.addActionListener(this);
@@ -173,18 +187,48 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == startButton){
-            JOptionPane.showMessageDialog(this,"Ticket Issued", "TTPC", JOptionPane.INFORMATION_MESSAGE);
-            
+        if (e.getSource() == startButton) {
+
+            int destinationIndex = stationComboBox.getSelectedIndex();
+            double distance = distances.get(destinationIndex) ;
+            String stationName = stationNames.get(destinationIndex);
+            int halfTicketsAmount = Integer.parseInt(halfAmountTextField.getText());
+            int fullTicketsAmount = Integer.parseInt(fullAmountTextField.getText());
+            System.out.println(fullTicketsAmount);
+
+            int trainClass = 0;
+            double ticketPrice = 0;
+
+            if (firstClassRadioButton.isSelected()){
+                trainClass = 1;
+                ticketPrice = firstClassPrices.get(destinationIndex);
+            } else if (secondClassRadioButton.isSelected()) {
+                trainClass = 2;
+                ticketPrice = secondClassPrices.get(destinationIndex);
+            } else if (thirdClassRadioButton.isSelected()) {
+                trainClass = 3;
+                ticketPrice = thirdClassPrices.get(destinationIndex);
+            }
+
+            PriceCalculator priceCalculator = new PriceCalculator(stationName,distance,ticketPrice, halfTicketsAmount, fullTicketsAmount, trainClass);
+            priceCalculator.ticketDetailsSaver();
+
+            stationComboBox.setSelectedIndex(0);
+            halfAmountTextField.setText("0");
+            fullAmountTextField.setText("1");
+            thirdClassRadioButton.setSelected(true);
+
+            JOptionPane.showMessageDialog(this, priceCalculator, "TTPC", JOptionPane.INFORMATION_MESSAGE);
+
         } else if (e.getSource() == totalButton) {
-            JOptionPane.showMessageDialog(this,"Total Tickets", "TTPC", JOptionPane.INFORMATION_MESSAGE);
-            
+            JOptionPane.showMessageDialog(this, "Total Tickets", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+
         } else if (e.getSource() == helpButton) {
-            JOptionPane.showMessageDialog(this,"This is help", "TTPC", JOptionPane.INFORMATION_MESSAGE);
-            
+            JOptionPane.showMessageDialog(this, "This is help", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+
         } else if (e.getSource() == aboutButton) {
-            JOptionPane.showMessageDialog(this,"This is about", "TTPC", JOptionPane.INFORMATION_MESSAGE);
-            
+            JOptionPane.showMessageDialog(this, "This is about", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+
         }
 
     }

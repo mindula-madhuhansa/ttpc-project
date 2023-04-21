@@ -1,5 +1,6 @@
 package com.ttpc;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class StationDatabaseReader {
                 stations.add(stationDetails);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(new TicketIssuingWindow(), "An error occurred: " + e.getMessage(), "TTPC", JOptionPane.ERROR_MESSAGE);
         }
         return stations;
     }
