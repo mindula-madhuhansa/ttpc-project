@@ -5,7 +5,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TicketIssuingWindow extends JFrame implements ActionListener {
@@ -28,7 +27,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
     JLabel fullAmountLabel = new JLabel();
     JTextField halfAmountTextField = new JTextField();
     JTextField fullAmountTextField = new JTextField();
-    ButtonComponent startButton = new ButtonComponent("Start");
+    ButtonComponent startButton = new ButtonComponent("Pay");
     ButtonComponent totalButton = new ButtonComponent("Total");
     ButtonComponent helpButton = new ButtonComponent("Help");
     ButtonComponent aboutButton = new ButtonComponent("About");
@@ -37,8 +36,6 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
     ArrayList<Double> firstClassPrices = new ArrayList<>();
     ArrayList<Double> secondClassPrices = new ArrayList<>();
     ArrayList<Double> thirdClassPrices = new ArrayList<>();
-
-//    JSeparator hSeparator = new JSeparator(JSeparator.HORIZONTAL);
 
     TicketIssuingWindow() {
         this.setResizable(false);
@@ -53,6 +50,12 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         this.add(amountPanel);
         this.add(buttonPanel);
 
+        //add icon to frame
+        String iconPath = "src/res/ttpc.png";
+        ImageIcon icon = new ImageIcon(iconPath);
+        this.setIconImage(icon.getImage());
+
+        //creating a custom border
         Border marginBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         Border lineBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
         Border compoundBorder = BorderFactory.createCompoundBorder(lineBorder, marginBorder);
@@ -64,12 +67,12 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         stationPanel.setLayout(new GridLayout(2, 1, 10, 10));
         stationPanel.add(destinationLabel);
         stationPanel.add(stationComboBox);
-//        stationPanel.add(hSeparator);
 
         destinationLabel.setText("Destination");
         destinationLabel.setFont(new Font("Roboto", Font.BOLD, 16));
         destinationLabel.setForeground(Color.BLACK);
 
+        //add station names to combobox
         String filepath = "src/res/stationDetails.csv";
         StationDatabaseReader csvReader = new StationDatabaseReader();
         for (StationDetails stationDetails : csvReader.readCSV(filepath)) {
@@ -96,7 +99,6 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         classPanel.add(firstClassRadioButton);
         classPanel.add(secondClassRadioButton);
         classPanel.add(thirdClassRadioButton);
-//        classPanel.add(hSeparator);
 
         classLabel.setText("Class");
         classLabel.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -136,7 +138,6 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         amountPanel.add(amountLabel);
         amountPanel.add(halfFullAmountLabelPanel);
         amountPanel.add(halfFullAmountTextFieldPanel);
-//        amountPanel.add(hSeparator);
 
         amountLabel.setText("Amount");
         amountLabel.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -187,8 +188,8 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         helpButton.addActionListener(this);
         aboutButton.addActionListener(this);
 
+        //add this in the end of programme
         this.setVisible(true);
-
     }
 
     @Override
@@ -217,6 +218,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             PriceCalculator priceCalculator = new PriceCalculator(stationName,distance,ticketPrice, halfTicketsAmount, fullTicketsAmount, trainClass);
             priceCalculator.ticketDetailsSaver();
 
+            //reset the values after ticket issued
             stationComboBox.setSelectedIndex(0);
             halfAmountTextField.setText("0");
             fullAmountTextField.setText("1");

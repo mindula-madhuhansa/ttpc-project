@@ -28,6 +28,12 @@ public class TotalTicketsWindow extends JFrame implements ActionListener {
         this.add(textAreaScrollPane);
         this.add(buttonPanel);
 
+        //add icon to frame
+        String iconPath = "src/res/ttpc.png";
+        ImageIcon icon = new ImageIcon(iconPath);
+        this.setIconImage(icon.getImage());
+
+        //add custom border
         Border marginBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         Border lineBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
         Border compoundBorder = BorderFactory.createCompoundBorder(lineBorder, marginBorder);
@@ -36,6 +42,7 @@ public class TotalTicketsWindow extends JFrame implements ActionListener {
         textAreaScrollPane.setBackground(Color.GRAY);
         textAreaScrollPane.setBorder(compoundBorder);
 
+        //show text file
         try {
             String filepath = "src/res/tickets.txt";
             File ticketsFile = new File(filepath);
