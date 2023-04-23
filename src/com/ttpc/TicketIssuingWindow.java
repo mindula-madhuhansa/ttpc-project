@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TicketIssuingWindow extends JFrame implements ActionListener {
@@ -87,7 +88,6 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
 
         stationComboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
         stationComboBox.setBackground(Color.WHITE);
-        stationComboBox.setFocusable(false);
         stationComboBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         //class label and three radio buttons
@@ -105,21 +105,22 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         classLabel.setForeground(Color.BLACK);
 
         firstClassRadioButton.setText("First Class");
-        firstClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
-        firstClassRadioButton.setForeground(Color.BLACK);
+        firstClassRadioButton.setFont(new Font("Roboto", Font.BOLD, 12));
         firstClassRadioButton.setFocusable(false);
         firstClassRadioButton.setOpaque(false);
+        firstClassRadioButton.setEnabled(false);
+        firstClassRadioButton.setForeground(Color.BLACK);
         firstClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         secondClassRadioButton.setText("Second Class");
-        secondClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+        secondClassRadioButton.setFont(new Font("Roboto", Font.BOLD, 12));
         secondClassRadioButton.setForeground(Color.BLACK);
         secondClassRadioButton.setFocusable(false);
         secondClassRadioButton.setOpaque(false);
         secondClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         thirdClassRadioButton.setText("Third Class");
-        thirdClassRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+        thirdClassRadioButton.setFont(new Font("Roboto", Font.BOLD, 12));
         thirdClassRadioButton.setForeground(Color.BLACK);
         thirdClassRadioButton.setFocusable(false);
         thirdClassRadioButton.setOpaque(false);
@@ -237,11 +238,20 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             }
 
         } else if (e.getSource() == helpButton) {
-            JOptionPane.showMessageDialog(this, "This is help", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                String pdfPath = "src/res/help.pdf";
+                File helpPdf = new File(pdfPath);
+                if (helpPdf.exists()){
+                    Desktop.getDesktop().open(helpPdf);
+                }else {
+                    JOptionPane.showMessageDialog(this, "Help pdf does not exist", "Train Ticket Price Calculator", JOptionPane.ERROR_MESSAGE);
+                }
+            }catch (IOException ex){
+                ex.printStackTrace();
+            }
 
         } else if (e.getSource() == aboutButton) {
             JOptionPane.showMessageDialog(this, "This is about", "TTPC", JOptionPane.INFORMATION_MESSAGE);
-
         }
 
 

@@ -1,7 +1,7 @@
-Issued date: 22-04-2023 08:06:11
+Issued date: 23-04-2023 17:48:43
 From: Colombo Fort
-To: Agbopura
-Trip Distance: 251.96km
+To: Kaluthara South
+Trip Distance: 41.87km
 Class: 3
-Total Price: LKR 420.0
+Total Price: LKR 120.0
 
