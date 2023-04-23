@@ -1,5 +1,7 @@
 package com.ttpc;
 
+import com.ttpc.components.ButtonComponent;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;

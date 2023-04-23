@@ -1,4 +1,4 @@
-package com.ttpc;
+package com.ttpc.components;
 
 import javax.swing.*;
 import java.awt.*;

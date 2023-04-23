@@ -1,5 +1,10 @@
 package com.ttpc;
 
+import com.ttpc.components.ButtonComponent;
+import com.ttpc.components.LabelComponent;
+import com.ttpc.components.RadioButtonComponent;
+import com.ttpc.components.TextFieldComponent;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -16,18 +21,18 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
     JPanel halfFullAmountLabelPanel = new JPanel();
     JPanel halfFullAmountTextFieldPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
-    JLabel destinationLabel = new JLabel();
+    LabelComponent destinationLabel = new LabelComponent("Destination",16);
     JComboBox<String> stationComboBox = new JComboBox<>();
-    JLabel classLabel = new JLabel();
-    JRadioButton firstClassRadioButton = new JRadioButton();
-    JRadioButton secondClassRadioButton = new JRadioButton();
-    JRadioButton thirdClassRadioButton = new JRadioButton();
+    LabelComponent classLabel = new LabelComponent("Class", 16);
+    RadioButtonComponent firstClassRadioButton = new RadioButtonComponent("First Class", false);
+    RadioButtonComponent secondClassRadioButton = new RadioButtonComponent("Second Class", true);
+    RadioButtonComponent thirdClassRadioButton = new RadioButtonComponent("Third Class", true);
     ButtonGroup classRadioButtons = new ButtonGroup();
-    JLabel amountLabel = new JLabel();
-    JLabel halfAmountLabel = new JLabel();
-    JLabel fullAmountLabel = new JLabel();
-    JTextField halfAmountTextField = new JTextField();
-    JTextField fullAmountTextField = new JTextField();
+    LabelComponent amountLabel = new LabelComponent("Amount", 16);
+    LabelComponent halfAmountLabel = new LabelComponent("Half",14);
+    LabelComponent fullAmountLabel = new LabelComponent("Full", 14);
+    TextFieldComponent halfAmountTextField = new TextFieldComponent("0",16, true);
+    TextFieldComponent fullAmountTextField = new TextFieldComponent("1",16, true);
     ButtonComponent startButton = new ButtonComponent("Pay");
     ButtonComponent totalButton = new ButtonComponent("Total");
     ButtonComponent helpButton = new ButtonComponent("Help");
@@ -69,10 +74,6 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         stationPanel.add(destinationLabel);
         stationPanel.add(stationComboBox);
 
-        destinationLabel.setText("Destination");
-        destinationLabel.setFont(new Font("Roboto", Font.BOLD, 16));
-        destinationLabel.setForeground(Color.BLACK);
-
         //add station names to combobox
         String filepath = "src/res/stationDetails.csv";
         StationDatabaseReader csvReader = new StationDatabaseReader();
@@ -84,7 +85,6 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             secondClassPrices.add(stationDetails.getSecondClassPrice());
             thirdClassPrices.add(stationDetails.getThirdClassPrice());
         }
-
 
         stationComboBox.setFont(new Font("Roboto", Font.PLAIN, 15));
         stationComboBox.setBackground(Color.WHITE);
@@ -100,32 +100,8 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         classPanel.add(secondClassRadioButton);
         classPanel.add(thirdClassRadioButton);
 
-        classLabel.setText("Class");
-        classLabel.setFont(new Font("Roboto", Font.BOLD, 16));
-        classLabel.setForeground(Color.BLACK);
-
-        firstClassRadioButton.setText("First Class");
-        firstClassRadioButton.setFont(new Font("Roboto", Font.BOLD, 12));
-        firstClassRadioButton.setFocusable(false);
-        firstClassRadioButton.setOpaque(false);
-        firstClassRadioButton.setEnabled(false);
-        firstClassRadioButton.setForeground(Color.BLACK);
-        firstClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        secondClassRadioButton.setText("Second Class");
-        secondClassRadioButton.setFont(new Font("Roboto", Font.BOLD, 12));
-        secondClassRadioButton.setForeground(Color.BLACK);
-        secondClassRadioButton.setFocusable(false);
-        secondClassRadioButton.setOpaque(false);
-        secondClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        thirdClassRadioButton.setText("Third Class");
-        thirdClassRadioButton.setFont(new Font("Roboto", Font.BOLD, 12));
-        thirdClassRadioButton.setForeground(Color.BLACK);
-        thirdClassRadioButton.setFocusable(false);
-        thirdClassRadioButton.setOpaque(false);
+        //set thirdClassRadioButton selected by default
         thirdClassRadioButton.setSelected(true);
-        thirdClassRadioButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         classRadioButtons.add(firstClassRadioButton);
         classRadioButtons.add(secondClassRadioButton);
@@ -140,10 +116,6 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         amountPanel.add(halfFullAmountLabelPanel);
         amountPanel.add(halfFullAmountTextFieldPanel);
 
-        amountLabel.setText("Amount");
-        amountLabel.setFont(new Font("Roboto", Font.BOLD, 16));
-        amountLabel.setForeground(Color.BLACK);
-
         halfFullAmountLabelPanel.setBounds(30, 300, 360, 100);
         halfFullAmountLabelPanel.setBackground(Color.GRAY);
         halfFullAmountLabelPanel.setLayout(new GridLayout(1, 2, 10, 10));
@@ -151,29 +123,12 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         halfFullAmountLabelPanel.add(halfAmountLabel);
         halfFullAmountLabelPanel.add(fullAmountLabel);
 
-        halfAmountLabel.setText("Half");
-        halfAmountLabel.setFont(new Font("Roboto", Font.BOLD, 14));
-        halfAmountLabel.setForeground(Color.BLACK);
-        fullAmountLabel.setText("Full");
-        fullAmountLabel.setForeground(Color.BLACK);
-        fullAmountLabel.setFont(new Font("Roboto", Font.BOLD, 14));
-
         halfFullAmountTextFieldPanel.setBounds(30, 340, 360, 100);
         halfFullAmountTextFieldPanel.setBackground(Color.GRAY);
         halfFullAmountTextFieldPanel.setLayout(new GridLayout(1, 2, 10, 10));
 
         halfFullAmountTextFieldPanel.add(halfAmountTextField);
         halfFullAmountTextFieldPanel.add(fullAmountTextField);
-
-        halfAmountTextField.setText("0");
-        halfAmountTextField.setFont(new Font("Roboto", Font.PLAIN, 16));
-        halfAmountTextField.setHorizontalAlignment(SwingConstants.RIGHT);
-        halfAmountTextField.setForeground(Color.BLACK);
-
-        fullAmountTextField.setText("1");
-        fullAmountTextField.setFont(new Font("Roboto", Font.PLAIN, 16));
-        fullAmountTextField.setHorizontalAlignment(SwingConstants.RIGHT);
-        fullAmountTextField.setForeground(Color.BLACK);
 
         //back button and proceed button
         buttonPanel.setBounds(30, 450, 360, 80);
@@ -197,7 +152,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
             int destinationIndex = stationComboBox.getSelectedIndex();
-            double distance = distances.get(destinationIndex) ;
+            double distance = distances.get(destinationIndex);
             String stationName = stationNames.get(destinationIndex);
             int halfTicketsAmount = Integer.parseInt(halfAmountTextField.getText());
             int fullTicketsAmount = Integer.parseInt(fullAmountTextField.getText());
@@ -205,7 +160,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             int trainClass = 0;
             double ticketPrice = 0;
 
-            if (firstClassRadioButton.isSelected()){
+            if (firstClassRadioButton.isSelected()) {
                 trainClass = 1;
                 ticketPrice = firstClassPrices.get(destinationIndex);
             } else if (secondClassRadioButton.isSelected()) {
@@ -216,7 +171,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
                 ticketPrice = thirdClassPrices.get(destinationIndex);
             }
 
-            PriceCalculator priceCalculator = new PriceCalculator(stationName,distance,ticketPrice, halfTicketsAmount, fullTicketsAmount, trainClass);
+            PriceCalculator priceCalculator = new PriceCalculator(stationName, distance, ticketPrice, halfTicketsAmount, fullTicketsAmount, trainClass);
             priceCalculator.ticketDetailsSaver();
 
             //reset the values after ticket issued
@@ -230,10 +185,10 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         } else if (e.getSource() == totalButton) {
             String filepath = "src/res/tickets.txt";
             File file = new File(filepath);
-            if(file.exists()){
+            if (file.exists()) {
                 this.dispose();
                 new TotalTicketsWindow();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Issued tickets file does not exist.", "TTPC", JOptionPane.ERROR_MESSAGE);
             }
 
@@ -241,12 +196,12 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             try {
                 String pdfPath = "src/res/help.pdf";
                 File helpPdf = new File(pdfPath);
-                if (helpPdf.exists()){
+                if (helpPdf.exists()) {
                     Desktop.getDesktop().open(helpPdf);
-                }else {
+                } else {
                     JOptionPane.showMessageDialog(this, "Help pdf does not exist", "Train Ticket Price Calculator", JOptionPane.ERROR_MESSAGE);
                 }
-            }catch (IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
 
@@ -254,7 +209,5 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "This is about", "TTPC", JOptionPane.INFORMATION_MESSAGE);
         }
 
-
     }
-
 }
