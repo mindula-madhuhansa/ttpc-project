@@ -1,8 +1,0 @@
-Issued date: 24-04-2023 20:56:31
-From: Colombo Fort
-To: Agbopura
-Trip Distance: 251.96km
-Class: 3
-Ticket Qty: 1.0
-Total Price: LKR 420.0
-

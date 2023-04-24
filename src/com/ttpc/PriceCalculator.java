@@ -26,6 +26,30 @@ public class PriceCalculator {
         this.ticketClass = ticketClass;
     }
 
+    public String getStationName() {
+        return stationName;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public double getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public int getHalfTicketsAmount() {
+        return halfTicketsAmount;
+    }
+
+    public int getFullTicketsAmount() {
+        return fullTicketsAmount;
+    }
+
+    public int getTicketClass() {
+        return ticketClass;
+    }
+
     public void ticketDetailsSaver() {
         try {
             String filePath = "src/res/tickets.txt";

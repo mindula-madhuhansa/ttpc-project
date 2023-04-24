@@ -1,19 +1,14 @@
 package com.ttpc;
-
-import com.ttpc.components.ButtonComponent;
-import com.ttpc.components.LabelComponent;
-import com.ttpc.components.RadioButtonComponent;
-import com.ttpc.components.TextFieldComponent;
+import com.ttpc.components.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TicketIssuingWindow extends JFrame implements ActionListener {
+public class TicketIssuingWindow extends FrameComponent implements ActionListener, WindowGUICreator {
 
     JPanel stationPanel = new JPanel();
     JPanel classPanel = new JPanel();
@@ -44,32 +39,20 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
     ArrayList<Double> thirdClassPrices = new ArrayList<>();
 
     TicketIssuingWindow() {
-        this.setResizable(false);
+        prepareGUI();
+    }
+
+    public void prepareGUI(){
         this.setSize(430, 580);
-        this.setTitle("Train Ticket Price Calculator");
-        this.setLocationRelativeTo(null);
-        this.setLayout(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setBackground(Color.GRAY);
         this.add(stationPanel);
         this.add(classPanel);
         this.add(amountPanel);
         this.add(buttonPanel);
 
-        //add icon to frame
-        String iconPath = "src/res/ttpc.png";
-        ImageIcon icon = new ImageIcon(iconPath);
-        this.setIconImage(icon.getImage());
-
-        //creating a custom border
-        Border marginBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        Border lineBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
-        Border compoundBorder = BorderFactory.createCompoundBorder(lineBorder, marginBorder);
-
         //destination label and station list combobox
         stationPanel.setBounds(30, 20, 360, 100);
         stationPanel.setBackground(Color.GRAY);
-        stationPanel.setBorder(compoundBorder);
+        stationPanel.setBorder(addBorder());
         stationPanel.setLayout(new GridLayout(2, 1, 10, 10));
         stationPanel.add(destinationLabel);
         stationPanel.add(stationComboBox);
@@ -93,7 +76,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         //class label and three radio buttons
         classPanel.setBounds(30, 140, 360, 140);
         classPanel.setBackground(Color.GRAY);
-        classPanel.setBorder(compoundBorder);
+        classPanel.setBorder(addBorder());
         classPanel.setLayout(new GridLayout(4, 1, 10, 10));
         classPanel.add(classLabel);
         classPanel.add(firstClassRadioButton);
@@ -110,7 +93,7 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         //amount label and half and full labels and textFields
         amountPanel.setBounds(30, 300, 360, 120);
         amountPanel.setBackground(Color.GRAY);
-        amountPanel.setBorder(compoundBorder);
+        amountPanel.setBorder(addBorder());
         amountPanel.setLayout(new GridLayout(3, 1));
         amountPanel.add(amountLabel);
         amountPanel.add(halfFullAmountLabelPanel);
@@ -144,7 +127,8 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
         helpButton.addActionListener(this);
         aboutButton.addActionListener(this);
 
-        //add this in the end of programme
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

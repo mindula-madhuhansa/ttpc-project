@@ -1,9 +1,9 @@
 package com.ttpc;
 
 import com.ttpc.components.ButtonComponent;
+import com.ttpc.components.FrameComponent;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class TotalTicketsWindow extends JFrame implements ActionListener {
+public class TotalTicketsWindow extends FrameComponent implements ActionListener, WindowGUICreator {
     JPanel buttonPanel = new JPanel();
     JTextArea ticketDetailsTextArea = new JTextArea(20, 1);
     JScrollPane textAreaScrollPane = new JScrollPane(ticketDetailsTextArea);
@@ -20,29 +20,18 @@ public class TotalTicketsWindow extends JFrame implements ActionListener {
     ButtonComponent clearButton = new ButtonComponent("Clear");
 
     TotalTicketsWindow() {
-        this.setResizable(false);
+        prepareGUI();
+    }
+
+    public void prepareGUI(){
         this.setSize(400, 600);
-        this.setTitle("Train Ticket Price Calculator");
-        this.setLocationRelativeTo(null);
-        this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setBackground(Color.GRAY);
         this.add(textAreaScrollPane);
         this.add(buttonPanel);
 
-        //add icon to frame
-        String iconPath = "src/res/ttpc.png";
-        ImageIcon icon = new ImageIcon(iconPath);
-        this.setIconImage(icon.getImage());
-
-        //add custom border
-        Border marginBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        Border lineBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
-        Border compoundBorder = BorderFactory.createCompoundBorder(lineBorder, marginBorder);
-
         textAreaScrollPane.setBounds(30, 20, 330, 470);
         textAreaScrollPane.setBackground(Color.GRAY);
-        textAreaScrollPane.setBorder(compoundBorder);
+        textAreaScrollPane.setBorder(addBorder());
 
         //show text file
         try {
@@ -72,10 +61,12 @@ public class TotalTicketsWindow extends JFrame implements ActionListener {
         buttonPanel.add(backButton);
         buttonPanel.add(clearButton);
 
-        this.setVisible(true);
-
         backButton.addActionListener(this);
         clearButton.addActionListener(this);
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     @Override
