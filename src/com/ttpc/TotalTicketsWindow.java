@@ -2,6 +2,7 @@ package com.ttpc;
 
 import com.ttpc.components.ButtonComponent;
 import com.ttpc.components.FrameComponent;
+import com.ttpc.interfaces.WindowGUICreator;
 
 import javax.swing.*;
 import java.awt.*;

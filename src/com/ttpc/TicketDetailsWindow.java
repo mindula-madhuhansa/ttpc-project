@@ -4,13 +4,14 @@ import com.ttpc.components.ButtonComponent;
 import com.ttpc.components.FrameComponent;
 import com.ttpc.components.LabelComponent;
 import com.ttpc.components.TextFieldComponent;
+import com.ttpc.interfaces.WindowGUICreator;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TicketDetailsWindow extends FrameComponent implements ActionListener,WindowGUICreator {
+public class TicketDetailsWindow extends FrameComponent implements ActionListener, WindowGUICreator {
 
     JPanel ticketDetailsPanel = new JPanel();
     JPanel buttonPanel = new JPanel();

@@ -1,5 +1,6 @@
 package com.ttpc;
 import com.ttpc.components.*;
+import com.ttpc.interfaces.WindowGUICreator;
 
 import javax.swing.*;
 import java.awt.*;
