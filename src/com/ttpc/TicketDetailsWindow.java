@@ -26,9 +26,13 @@ public class TicketDetailsWindow extends JFrame implements ActionListener {
     TextFieldComponent ticketQtyTextField = new TextFieldComponent(14,false);
     LabelComponent totalPriceLabel = new LabelComponent("Total:", 14);
     TextFieldComponent totalPriceTextField = new TextFieldComponent(14,false);
-    ButtonComponent okButton = new ButtonComponent("OK");
+    ButtonComponent backButton = new ButtonComponent("Back");
+    ButtonComponent printButton = new ButtonComponent("Print");
+    PriceCalculator priceCalculator;
 
-    TicketDetailsWindow(){
+    TicketDetailsWindow(PriceCalculator priceCalculator){
+        this.priceCalculator = priceCalculator;
+
         this.setResizable(false);
         this.setSize(360, 360);
         this.setTitle("Train Ticket Price Calculator");
@@ -38,6 +42,7 @@ public class TicketDetailsWindow extends JFrame implements ActionListener {
         this.getContentPane().setBackground(Color.GRAY);
         this.add(ticketDetailsPanel);
         this.add(buttonPanel);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         //add icon to frame
         String iconPath = "src/res/ttpc.png";
@@ -66,29 +71,32 @@ public class TicketDetailsWindow extends JFrame implements ActionListener {
         ticketDetailsPanel.add(totalPriceLabel);
         ticketDetailsPanel.add(totalPriceTextField);
 
-        //add labels
-
+        double ticketQty = priceCalculator.fullTicketsAmount + priceCalculator.halfTicketsAmount*0.5;
+        double ticketPrice = ticketQty * priceCalculator.ticketPrice;
         //add textFields
-        startTextField.setText("0");
-        destinationTextField.setText("0");
-        distanceTextField.setText("0");
-        classTextField.setText("0");
-        ticketQtyTextField.setText("0");
-        totalPriceTextField.setText("0");
+        startTextField.setText("Colombo Fort");
+        destinationTextField.setText(priceCalculator.stationName);
+        distanceTextField.setText(String.valueOf(priceCalculator.distance));
+        classTextField.setText(String.valueOf(priceCalculator.ticketClass));
+        ticketQtyTextField.setText(String.valueOf(ticketQty));
+        totalPriceTextField.setText(String.valueOf(ticketPrice));
 
         buttonPanel.setBounds(24, 270, 300, 40);
         buttonPanel.setBackground(Color.GRAY);
-        buttonPanel.setLayout(new GridLayout(1, 1, 10, 10));
-        buttonPanel.add(okButton);
+        buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
+        buttonPanel.add(backButton);
+        buttonPanel.add(printButton);
 
-        okButton.addActionListener(this);
-
+        backButton.addActionListener(this);
+        printButton.addActionListener(this);
 
         this.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == backButton){
+            this.dispose();
+        }
     }
 }

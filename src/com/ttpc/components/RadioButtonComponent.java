@@ -6,7 +6,7 @@ import java.awt.*;
 public class RadioButtonComponent extends JRadioButton {
     public RadioButtonComponent(String label, boolean isEnabled){
         super(label);
-        setFont(new Font("Roboto", Font.BOLD, 12));
+        setFont(new Font("Roboto", Font.BOLD, 14));
         setFocusable(false);
         setOpaque(false);
         setEnabled(isEnabled);

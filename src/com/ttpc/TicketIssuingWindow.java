@@ -174,13 +174,13 @@ public class TicketIssuingWindow extends JFrame implements ActionListener {
             PriceCalculator priceCalculator = new PriceCalculator(stationName, distance, ticketPrice, halfTicketsAmount, fullTicketsAmount, trainClass);
             priceCalculator.ticketDetailsSaver();
 
+            new TicketDetailsWindow(priceCalculator);
+
             //reset the values after ticket issued
             stationComboBox.setSelectedIndex(0);
             halfAmountTextField.setText("0");
             fullAmountTextField.setText("1");
             thirdClassRadioButton.setSelected(true);
-
-            JOptionPane.showMessageDialog(this, priceCalculator, "TTPC", JOptionPane.INFORMATION_MESSAGE);
 
         } else if (e.getSource() == totalButton) {
             String filepath = "src/res/tickets.txt";

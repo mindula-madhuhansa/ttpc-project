@@ -42,11 +42,13 @@ public class PriceCalculator {
 
     @Override
     public String toString() {
-        double finalTicketPrice = (fullTicketsAmount + halfTicketsAmount * 0.5) * ticketPrice;
+        double ticketQty = fullTicketsAmount + halfTicketsAmount * 0.5;
+        double finalTicketPrice = (ticketQty) * ticketPrice;
         return "From: Colombo Fort\n" +
                 "To: " + stationName + "\n" +
                 "Trip Distance: " + distance + "km" + "\n" +
                 "Class: " + ticketClass + "\n" +
+                "Ticket Qty: " + ticketQty + "\n" +
                 "Total Price: " + "LKR " + finalTicketPrice + "\n\n";
     }
 
