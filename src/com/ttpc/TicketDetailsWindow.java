@@ -16,32 +16,35 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
     JPanel ticketDetailsPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
     LabelComponent startLabel = new LabelComponent("From:", 14);
-    TextFieldComponent startTextField = new TextFieldComponent(14,false);
+    TextFieldComponent startTextField = new TextFieldComponent(14, false);
     LabelComponent destinationLabel = new LabelComponent("To:", 14);
-    TextFieldComponent destinationTextField = new TextFieldComponent(14,false);
+    TextFieldComponent destinationTextField = new TextFieldComponent(14, false);
     LabelComponent distanceLabel = new LabelComponent("Distance:", 14);
-    TextFieldComponent distanceTextField = new TextFieldComponent(14,false);
+    TextFieldComponent distanceTextField = new TextFieldComponent(14, false);
     LabelComponent classLabel = new LabelComponent("Class:", 14);
-    TextFieldComponent classTextField = new TextFieldComponent(14,false);
+    TextFieldComponent classTextField = new TextFieldComponent(14, false);
     LabelComponent ticketQtyLabel = new LabelComponent("Qty:", 14);
-    TextFieldComponent ticketQtyTextField = new TextFieldComponent(14,false);
+    TextFieldComponent ticketQtyTextField = new TextFieldComponent(14, false);
     LabelComponent totalPriceLabel = new LabelComponent("Total:", 14);
-    TextFieldComponent totalPriceTextField = new TextFieldComponent(14,false);
+    TextFieldComponent totalPriceTextField = new TextFieldComponent(14, false);
     ButtonComponent okButton = new ButtonComponent("OK");
     ButtonComponent printButton = new ButtonComponent("Print");
     PriceCalculator priceCalculator;
+    FrameComponent parentFrame;
 
-    TicketDetailsWindow(PriceCalculator priceCalculator){
+    public TicketDetailsWindow(PriceCalculator priceCalculator, FrameComponent parentFrame) {
         this.priceCalculator = priceCalculator;
+        this.parentFrame = parentFrame;
         prepareGUI();
     }
 
-    public void prepareGUI(){
+    public void prepareGUI() {
+
         this.setSize(360, 360);
         this.add(ticketDetailsPanel);
         this.add(buttonPanel);
 
-        ticketDetailsPanel.setBounds(24,20,300,240);
+        ticketDetailsPanel.setBounds(24, 20, 300, 240);
         ticketDetailsPanel.setBackground(Color.GRAY);
         ticketDetailsPanel.setBorder(addBorder());
         ticketDetailsPanel.setLayout(new GridLayout(6, 2, 10, 10));
@@ -58,7 +61,7 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
         ticketDetailsPanel.add(totalPriceLabel);
         ticketDetailsPanel.add(totalPriceTextField);
 
-        double ticketQty = priceCalculator.getFullTicketsAmount() + priceCalculator.getHalfTicketsAmount()*0.5;
+        double ticketQty = priceCalculator.getFullTicketsAmount() + priceCalculator.getHalfTicketsAmount() * 0.5;
         double ticketPrice = ticketQty * priceCalculator.getTicketPrice();
 
         //add textFields
@@ -85,8 +88,9 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == okButton){
+        if (e.getSource() == okButton) {
             this.dispose();
+            parentFrame.setEnabled(true);
         }
     }
 }

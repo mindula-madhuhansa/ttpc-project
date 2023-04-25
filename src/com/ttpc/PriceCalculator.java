@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class PriceCalculator {
-    public String stationName;
-    public double distance;
-    public double ticketPrice;
-    public int halfTicketsAmount;
-    public int fullTicketsAmount;
-    public int ticketClass;
+    private final String stationName;
+    private final double distance;
+    private final double ticketPrice;
+    private final int halfTicketsAmount;
+    private final int fullTicketsAmount;
+    private final int ticketClass;
     LocalDateTime localDateTime = LocalDateTime.now();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
@@ -73,7 +73,8 @@ public class PriceCalculator {
                 "Trip Distance: " + distance + "km" + "\n" +
                 "Class: " + ticketClass + "\n" +
                 "Ticket Qty: " + ticketQty + "\n" +
-                "Total Price: " + "LKR " + finalTicketPrice + "\n\n";
+                "Total Price: " + "LKR " + finalTicketPrice + "\n\n" +
+                "--------------------------------------------\n\n";
     }
 
 }

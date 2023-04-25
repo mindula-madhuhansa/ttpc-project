@@ -1,4 +1,5 @@
 package com.ttpc;
+
 import com.ttpc.components.*;
 import com.ttpc.interfaces.WindowGUICreator;
 
@@ -17,7 +18,7 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     JPanel halfFullAmountLabelPanel = new JPanel();
     JPanel halfFullAmountTextFieldPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
-    LabelComponent destinationLabel = new LabelComponent("Destination",16);
+    LabelComponent destinationLabel = new LabelComponent("Destination", 16);
     JComboBox<String> stationComboBox = new JComboBox<>();
     LabelComponent classLabel = new LabelComponent("Class", 16);
     RadioButtonComponent firstClassRadioButton = new RadioButtonComponent("First Class", false);
@@ -25,10 +26,10 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     RadioButtonComponent thirdClassRadioButton = new RadioButtonComponent("Third Class", true);
     ButtonGroup classRadioButtons = new ButtonGroup();
     LabelComponent amountLabel = new LabelComponent("Amount", 16);
-    LabelComponent halfAmountLabel = new LabelComponent("Half",14);
+    LabelComponent halfAmountLabel = new LabelComponent("Half", 14);
     LabelComponent fullAmountLabel = new LabelComponent("Full", 14);
-    TextFieldComponent halfAmountTextField = new TextFieldComponent("0",16, true);
-    TextFieldComponent fullAmountTextField = new TextFieldComponent("1",16, true);
+    TextFieldComponent halfAmountTextField = new TextFieldComponent("0", 16, true);
+    TextFieldComponent fullAmountTextField = new TextFieldComponent("1", 16, true);
     ButtonComponent startButton = new ButtonComponent("Pay");
     ButtonComponent totalButton = new ButtonComponent("Total");
     ButtonComponent helpButton = new ButtonComponent("Help");
@@ -39,11 +40,11 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     ArrayList<Double> secondClassPrices = new ArrayList<>();
     ArrayList<Double> thirdClassPrices = new ArrayList<>();
 
-    TicketIssuingWindow() {
+    public TicketIssuingWindow() {
         prepareGUI();
     }
 
-    public void prepareGUI(){
+    public void prepareGUI() {
         this.setSize(430, 580);
         this.add(stationPanel);
         this.add(classPanel);
@@ -136,6 +137,7 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
+            this.setEnabled(false);
             int destinationIndex = stationComboBox.getSelectedIndex();
             double distance = distances.get(destinationIndex);
             String stationName = stationNames.get(destinationIndex);
@@ -159,7 +161,7 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
             PriceCalculator priceCalculator = new PriceCalculator(stationName, distance, ticketPrice, halfTicketsAmount, fullTicketsAmount, trainClass);
             priceCalculator.ticketDetailsSaver();
 
-            new TicketDetailsWindow(priceCalculator);
+            new TicketDetailsWindow(priceCalculator,this);
 
             //reset the values after ticket issued
             stationComboBox.setSelectedIndex(0);
