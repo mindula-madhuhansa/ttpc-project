@@ -66,7 +66,7 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
 
         //add textFields
         startTextField.setText("Colombo Fort");
-        destinationTextField.setText(priceCalculator.getStationName());
+        destinationTextField.setText(priceCalculator.getEndStationName());
         distanceTextField.setText(String.valueOf(priceCalculator.getDistance()));
         classTextField.setText(String.valueOf(priceCalculator.getTicketClass()));
         ticketQtyTextField.setText(String.valueOf(ticketQty));

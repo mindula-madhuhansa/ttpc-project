@@ -28,8 +28,8 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     LabelComponent amountLabel = new LabelComponent("Amount", 16);
     LabelComponent halfAmountLabel = new LabelComponent("Half", 14);
     LabelComponent fullAmountLabel = new LabelComponent("Full", 14);
-    TextFieldComponent halfAmountTextField = new TextFieldComponent("0", 16, true);
-    TextFieldComponent fullAmountTextField = new TextFieldComponent("1", 16, true);
+    TextFieldComponent halfAmountTextField = new TextFieldComponent("0", 16, true,3);
+    TextFieldComponent fullAmountTextField = new TextFieldComponent("1", 16, true,3);
     ButtonComponent startButton = new ButtonComponent("Pay");
     ButtonComponent totalButton = new ButtonComponent("Total");
     ButtonComponent helpButton = new ButtonComponent("Help");
@@ -137,37 +137,42 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-            this.setEnabled(false);
-            int destinationIndex = stationComboBox.getSelectedIndex();
-            double distance = distances.get(destinationIndex);
-            String stationName = stationNames.get(destinationIndex);
-            int halfTicketsAmount = Integer.parseInt(halfAmountTextField.getText());
-            int fullTicketsAmount = Integer.parseInt(fullAmountTextField.getText());
+            if (Integer.parseInt(halfAmountTextField.getText()) == 0 && Integer.parseInt(fullAmountTextField.getText()) == 0) {
+                JOptionPane.showMessageDialog(this, "Both fields cannot be zero.\nPlease enter a valid value in at least one of the fields", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.setEnabled(false);
+                int destinationIndex = stationComboBox.getSelectedIndex();
+                double distance = distances.get(destinationIndex);
+                String stationName = stationNames.get(destinationIndex);
+                int halfTicketsAmount = Integer.parseInt(halfAmountTextField.getText());
+                int fullTicketsAmount = Integer.parseInt(fullAmountTextField.getText());
 
-            int trainClass = 0;
-            double ticketPrice = 0;
+                int trainClass = 0;
+                double ticketPrice = 0;
 
-            if (firstClassRadioButton.isSelected()) {
-                trainClass = 1;
-                ticketPrice = firstClassPrices.get(destinationIndex);
-            } else if (secondClassRadioButton.isSelected()) {
-                trainClass = 2;
-                ticketPrice = secondClassPrices.get(destinationIndex);
-            } else if (thirdClassRadioButton.isSelected()) {
-                trainClass = 3;
-                ticketPrice = thirdClassPrices.get(destinationIndex);
+                if (firstClassRadioButton.isSelected()) {
+                    trainClass = 1;
+                    ticketPrice = firstClassPrices.get(destinationIndex);
+                } else if (secondClassRadioButton.isSelected()) {
+                    trainClass = 2;
+                    ticketPrice = secondClassPrices.get(destinationIndex);
+                } else if (thirdClassRadioButton.isSelected()) {
+                    trainClass = 3;
+                    ticketPrice = thirdClassPrices.get(destinationIndex);
+                }
+
+                PriceCalculator priceCalculator = new PriceCalculator(stationName, distance, ticketPrice, halfTicketsAmount, fullTicketsAmount, trainClass);
+                priceCalculator.ticketDetailsSaver();
+
+                new TicketDetailsWindow(priceCalculator, this);
+
+                //reset the values after ticket issued
+                stationComboBox.setSelectedIndex(0);
+                halfAmountTextField.setText("0");
+                fullAmountTextField.setText("1");
+                thirdClassRadioButton.setSelected(true);
             }
 
-            PriceCalculator priceCalculator = new PriceCalculator(stationName, distance, ticketPrice, halfTicketsAmount, fullTicketsAmount, trainClass);
-            priceCalculator.ticketDetailsSaver();
-
-            new TicketDetailsWindow(priceCalculator,this);
-
-            //reset the values after ticket issued
-            stationComboBox.setSelectedIndex(0);
-            halfAmountTextField.setText("0");
-            fullAmountTextField.setText("1");
-            thirdClassRadioButton.setSelected(true);
 
         } else if (e.getSource() == totalButton) {
             String filepath = "src/res/tickets.txt";

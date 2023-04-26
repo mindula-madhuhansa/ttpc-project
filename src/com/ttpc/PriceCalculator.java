@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class PriceCalculator {
-    private final String stationName;
+    private final String startStationName = "Colombo Fort";
+    private final String endStationName;
     private final double distance;
     private final double ticketPrice;
     private final int halfTicketsAmount;
@@ -17,8 +18,8 @@ public class PriceCalculator {
     LocalDateTime localDateTime = LocalDateTime.now();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-    public PriceCalculator(String stationName, double distance, double ticketPrice, int halfTicketsAmount, int fullTicketsAmount, int ticketClass) {
-        this.stationName = stationName;
+    public PriceCalculator(String endStationName, double distance, double ticketPrice, int halfTicketsAmount, int fullTicketsAmount, int ticketClass) {
+        this.endStationName = endStationName;
         this.distance = distance;
         this.ticketPrice = ticketPrice;
         this.halfTicketsAmount = halfTicketsAmount;
@@ -26,8 +27,8 @@ public class PriceCalculator {
         this.ticketClass = ticketClass;
     }
 
-    public String getStationName() {
-        return stationName;
+    public String getEndStationName() {
+        return endStationName;
     }
 
     public double getDistance() {
@@ -68,8 +69,8 @@ public class PriceCalculator {
     public String toString() {
         double ticketQty = fullTicketsAmount + halfTicketsAmount * 0.5;
         double finalTicketPrice = (ticketQty) * ticketPrice;
-        return "From: Colombo Fort\n" +
-                "To: " + stationName + "\n" +
+        return "From: " + startStationName + "\n" +
+                "To: " + endStationName + "\n" +
                 "Trip Distance: " + distance + "km" + "\n" +
                 "Class: " + ticketClass + "\n" +
                 "Ticket Qty: " + ticketQty + "\n" +
