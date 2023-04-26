@@ -186,7 +186,7 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
 
         } else if (e.getSource() == helpButton) {
             try {
-                String pdfPath = "src/res/help.pdf";
+                String pdfPath = "src/res/TTPC User Guide.pdf";
                 File helpPdf = new File(pdfPath);
                 if (helpPdf.exists()) {
                     Desktop.getDesktop().open(helpPdf);
@@ -198,7 +198,7 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
             }
 
         } else if (e.getSource() == aboutButton) {
-            JOptionPane.showMessageDialog(this, "This is about", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html>Train Ticket Price Calculator<sub>1.1.0v</sub></html>", "TTPC", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
