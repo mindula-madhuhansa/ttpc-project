@@ -1,7 +1,9 @@
 package com.ttpc.components;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JRadioButton;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Cursor;
 
 public class RadioButtonComponent extends JRadioButton {
     public RadioButtonComponent(String label, boolean isEnabled){

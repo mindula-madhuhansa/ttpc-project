@@ -1,7 +1,7 @@
 package com.ttpc;
 
 import com.ttpc.components.*;
-import com.ttpc.interfaces.WindowGUICreator;
+import com.ttpc.interfaces.FrameCreatable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,14 +10,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TicketIssuingWindow extends FrameComponent implements ActionListener, WindowGUICreator {
+public class TicketIssuingWindow extends FrameComponent implements ActionListener, FrameCreatable {
 
-    JPanel stationPanel = new JPanel();
-    JPanel classPanel = new JPanel();
-    JPanel amountPanel = new JPanel();
-    JPanel halfFullAmountLabelPanel = new JPanel();
-    JPanel halfFullAmountTextFieldPanel = new JPanel();
-    JPanel buttonPanel = new JPanel();
+    PanelComponent stationPanel = new PanelComponent(true);
+    PanelComponent classPanel = new PanelComponent(true);
+    PanelComponent amountPanel = new PanelComponent(true);
+    PanelComponent halfFullAmountLabelPanel = new PanelComponent(false);
+    PanelComponent halfFullAmountTextFieldPanel = new PanelComponent(false);
+    PanelComponent buttonPanel = new PanelComponent(false);
     LabelComponent destinationLabel = new LabelComponent("Destination", 16);
     JComboBox<String> stationComboBox = new JComboBox<>();
     LabelComponent classLabel = new LabelComponent("Class", 16);
@@ -41,11 +41,13 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     ArrayList<Double> thirdClassPrices = new ArrayList<>();
 
     public TicketIssuingWindow() {
-        prepareGUI();
+        super("Train Ticket Price Calculator");
+        prepareGUI(430,580);
     }
 
-    public void prepareGUI() {
-        this.setSize(430, 580);
+    @Override
+    public void prepareGUI(int width, int height) {
+        this.setSize(width, height);
         this.add(stationPanel);
         this.add(classPanel);
         this.add(amountPanel);
@@ -53,8 +55,6 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
 
         //destination label and station list combobox
         stationPanel.setBounds(30, 20, 360, 100);
-        stationPanel.setBackground(Color.GRAY);
-        stationPanel.setBorder(addBorder());
         stationPanel.setLayout(new GridLayout(2, 1, 10, 10));
         stationPanel.add(destinationLabel);
         stationPanel.add(stationComboBox);
@@ -77,8 +77,6 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
 
         //class label and three radio buttons
         classPanel.setBounds(30, 140, 360, 140);
-        classPanel.setBackground(Color.GRAY);
-        classPanel.setBorder(addBorder());
         classPanel.setLayout(new GridLayout(4, 1, 10, 10));
         classPanel.add(classLabel);
         classPanel.add(firstClassRadioButton);
@@ -94,22 +92,18 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
 
         //amount label and half and full labels and textFields
         amountPanel.setBounds(30, 300, 360, 120);
-        amountPanel.setBackground(Color.GRAY);
-        amountPanel.setBorder(addBorder());
         amountPanel.setLayout(new GridLayout(3, 1));
         amountPanel.add(amountLabel);
         amountPanel.add(halfFullAmountLabelPanel);
         amountPanel.add(halfFullAmountTextFieldPanel);
 
         halfFullAmountLabelPanel.setBounds(30, 300, 360, 100);
-        halfFullAmountLabelPanel.setBackground(Color.GRAY);
         halfFullAmountLabelPanel.setLayout(new GridLayout(1, 2, 10, 10));
 
         halfFullAmountLabelPanel.add(halfAmountLabel);
         halfFullAmountLabelPanel.add(fullAmountLabel);
 
         halfFullAmountTextFieldPanel.setBounds(30, 340, 360, 100);
-        halfFullAmountTextFieldPanel.setBackground(Color.GRAY);
         halfFullAmountTextFieldPanel.setLayout(new GridLayout(1, 2, 10, 10));
 
         halfFullAmountTextFieldPanel.add(halfAmountTextField);
@@ -117,7 +111,6 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
 
         //back button and proceed button
         buttonPanel.setBounds(30, 450, 360, 80);
-        buttonPanel.setBackground(Color.GRAY);
         buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
         buttonPanel.add(startButton);
         buttonPanel.add(totalButton);

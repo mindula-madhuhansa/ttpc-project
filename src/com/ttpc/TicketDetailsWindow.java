@@ -1,20 +1,17 @@
 package com.ttpc;
 
-import com.ttpc.components.ButtonComponent;
-import com.ttpc.components.FrameComponent;
-import com.ttpc.components.LabelComponent;
-import com.ttpc.components.TextFieldComponent;
-import com.ttpc.interfaces.WindowGUICreator;
+import com.ttpc.components.*;
+import com.ttpc.interfaces.FrameCreatable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TicketDetailsWindow extends FrameComponent implements ActionListener, WindowGUICreator {
+public class TicketDetailsWindow extends FrameComponent implements ActionListener, FrameCreatable {
 
-    JPanel ticketDetailsPanel = new JPanel();
-    JPanel buttonPanel = new JPanel();
+    PanelComponent ticketDetailsPanel = new PanelComponent(true);
+    PanelComponent buttonPanel = new PanelComponent(false);
     LabelComponent startLabel = new LabelComponent("From:", 14);
     TextFieldComponent startTextField = new TextFieldComponent(14, false);
     LabelComponent destinationLabel = new LabelComponent("To:", 14);
@@ -33,20 +30,20 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
     FrameComponent parentFrame;
 
     public TicketDetailsWindow(PriceCalculator priceCalculator, FrameComponent parentFrame) {
+        super("Train Ticket Price Calculator");
         this.priceCalculator = priceCalculator;
         this.parentFrame = parentFrame;
-        prepareGUI();
+        prepareGUI(360, 360);
     }
 
-    public void prepareGUI() {
-
-        this.setSize(360, 360);
+    @Override
+    public void prepareGUI(int width, int height) {
+        this.setSize(width, height);
         this.add(ticketDetailsPanel);
         this.add(buttonPanel);
 
+        //add panels
         ticketDetailsPanel.setBounds(24, 20, 300, 240);
-        ticketDetailsPanel.setBackground(Color.GRAY);
-        ticketDetailsPanel.setBorder(addBorder());
         ticketDetailsPanel.setLayout(new GridLayout(6, 2, 10, 10));
         ticketDetailsPanel.add(startLabel);
         ticketDetailsPanel.add(startTextField);
@@ -61,6 +58,7 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
         ticketDetailsPanel.add(totalPriceLabel);
         ticketDetailsPanel.add(totalPriceTextField);
 
+        //calculate tickets
         double ticketQty = priceCalculator.getFullTicketsAmount() + priceCalculator.getHalfTicketsAmount() * 0.5;
         double ticketPrice = ticketQty * priceCalculator.getTicketPrice();
 
@@ -72,8 +70,8 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
         ticketQtyTextField.setText(String.valueOf(ticketQty));
         totalPriceTextField.setText(String.valueOf(ticketPrice));
 
+        //add buttons
         buttonPanel.setBounds(24, 270, 300, 40);
-        buttonPanel.setBackground(Color.GRAY);
         buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
         buttonPanel.add(okButton);
         buttonPanel.add(printButton);
@@ -91,6 +89,8 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
         if (e.getSource() == okButton) {
             this.dispose();
             parentFrame.setEnabled(true);
+        } else if (e.getSource() == printButton) {
+            new FIlePrint();
         }
     }
 }
