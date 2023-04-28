@@ -1,6 +1,6 @@
 package com.ttpc;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

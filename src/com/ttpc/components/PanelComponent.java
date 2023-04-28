@@ -2,7 +2,8 @@ package com.ttpc.components;
 
 import com.ttpc.interfaces.BorderCreatable;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import java.awt.Color;
 

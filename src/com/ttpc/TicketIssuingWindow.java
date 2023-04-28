@@ -1,11 +1,24 @@
 package com.ttpc;
 
-import com.ttpc.components.*;
+import com.ttpc.components.FrameComponent;
+import com.ttpc.components.PanelComponent;
+import com.ttpc.components.LabelComponent;
+import com.ttpc.components.RadioButtonComponent;
+import com.ttpc.components.TextFieldComponent;
+import com.ttpc.components.ButtonComponent;
 import com.ttpc.interfaces.FrameCreatable;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Font;
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

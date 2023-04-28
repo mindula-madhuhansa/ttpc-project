@@ -1,10 +1,14 @@
 package com.ttpc;
 
-import com.ttpc.components.*;
+import com.ttpc.components.FrameComponent;
+import com.ttpc.components.PanelComponent;
+import com.ttpc.components.LabelComponent;
+import com.ttpc.components.TextFieldComponent;
+import com.ttpc.components.ButtonComponent;
 import com.ttpc.interfaces.FrameCreatable;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

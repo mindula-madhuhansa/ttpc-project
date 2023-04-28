@@ -2,8 +2,9 @@ package com.ttpc.components;
 
 import com.ttpc.TotalTicketsWindow;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JTextArea;
+import java.awt.Insets;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
