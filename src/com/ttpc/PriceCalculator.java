@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class PriceCalculator {
-    private final String startStationName = "Colombo Fort";
     private final String endStationName;
     private final double distance;
     private final double ticketPrice;
@@ -51,6 +50,14 @@ public class PriceCalculator {
         return ticketClass;
     }
 
+    private double ticketQtyCalculate(int fullTicketsAmount, int halfTicketsAmount){
+        return fullTicketsAmount * halfTicketsAmount * 0.5;
+    }
+
+    private double ticketPriceCalculate(double ticketQ, double price){
+        return ticketQ * price;
+    }
+
     public void ticketDetailsSaver() {
         try {
             String filePath = "src/res/tickets.txt";
@@ -67,15 +74,16 @@ public class PriceCalculator {
 
     @Override
     public String toString() {
-        double ticketQty = fullTicketsAmount + halfTicketsAmount * 0.5;
-        double finalTicketPrice = (ticketQty) * ticketPrice;
+        String startStationName = "Colombo Fort";
+        double ticketQty = ticketQtyCalculate(fullTicketsAmount, halfTicketsAmount);
+        double finalTicketPrice = ticketPriceCalculate(ticketQty, ticketPrice);
         return "From: " + startStationName + "\n" +
                 "To: " + endStationName + "\n" +
                 "Trip Distance: " + distance + "km" + "\n" +
                 "Class: " + ticketClass + "\n" +
-                "Ticket Qty: " + ticketQty + "\n" +
-                "Total Price: " + "LKR " + finalTicketPrice + "\n\n" +
-                "--------------------------------------------\n\n";
+                "Ticket Qty: " + finalTicketPrice + "\n" +
+                "Total Price: " + "LKR " + ticketPrice + "\n\n" +
+                "------------------------------------------\n\n";
     }
 
 }

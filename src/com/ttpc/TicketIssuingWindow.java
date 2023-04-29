@@ -204,7 +204,7 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
             }
 
         } else if (e.getSource() == aboutButton) {
-            JOptionPane.showMessageDialog(this, "<html>Train Ticket Price Calculator<sub>1.1.0v</sub></html>", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "<html>Train Ticket Price Calculator<sub>1.1.6v</sub></html>", "TTPC", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }

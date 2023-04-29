@@ -9,6 +9,5 @@ public class LabelComponent extends JLabel {
         super(label);
         setFont(new Font("Roboto", Font.BOLD, fontSize));
         setForeground(Color.BLACK);
-
     }
 }

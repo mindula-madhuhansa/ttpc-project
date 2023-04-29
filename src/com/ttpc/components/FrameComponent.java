@@ -1,12 +1,14 @@
 package com.ttpc.components;
 
+import com.ttpc.interfaces.FrameCreatable;
+
 import javax.swing.JFrame;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 import java.awt.Color;
 
-public class FrameComponent extends JFrame {
+public abstract class FrameComponent extends JFrame implements FrameCreatable {
     public FrameComponent(String label){
         super(label);
         setResizable(false);
@@ -19,4 +21,6 @@ public class FrameComponent extends JFrame {
         ImageIcon icon = new ImageIcon(iconPath);
         setIconImage(icon.getImage());
     }
+
+    public abstract void prepareGUI(int width, int height);
 }

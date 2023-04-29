@@ -12,7 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TicketDetailsWindow extends FrameComponent implements ActionListener, FrameCreatable {
+public class TicketDetailsWindow extends FrameComponent implements ActionListener {
 
     PanelComponent ticketDetailsPanel = new PanelComponent(true);
     PanelComponent buttonPanel = new PanelComponent(false);
@@ -94,7 +94,7 @@ public class TicketDetailsWindow extends FrameComponent implements ActionListene
             this.dispose();
             parentFrame.setEnabled(true);
         } else if (e.getSource() == printButton) {
-            new FIlePrint();
+            new FIlePrinter();
         }
     }
 }
