@@ -9,7 +9,7 @@ import javax.swing.border.Border;
 import java.awt.Color;
 
 public abstract class FrameComponent extends JFrame implements FrameCreatable {
-    public FrameComponent(String label){
+    public FrameComponent(String label) {
         super(label);
         setResizable(false);
         setLayout(null);

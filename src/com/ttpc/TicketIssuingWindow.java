@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class TicketIssuingWindow extends FrameComponent implements ActionListener, FrameCreatable {
+public class TicketIssuingWindow extends FrameComponent implements ActionListener {
 
     PanelComponent stationPanel = new PanelComponent(true);
     PanelComponent classPanel = new PanelComponent(true);
@@ -41,8 +41,8 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     LabelComponent amountLabel = new LabelComponent("Amount", 16);
     LabelComponent halfAmountLabel = new LabelComponent("Half", 14);
     LabelComponent fullAmountLabel = new LabelComponent("Full", 14);
-    TextFieldComponent halfAmountTextField = new TextFieldComponent("0", 16, true,3);
-    TextFieldComponent fullAmountTextField = new TextFieldComponent("1", 16, true,3);
+    TextFieldComponent halfAmountTextField = new TextFieldComponent("0", 16, true, 3);
+    TextFieldComponent fullAmountTextField = new TextFieldComponent("1", 16, true, 3);
     ButtonComponent startButton = new ButtonComponent("Pay");
     ButtonComponent totalButton = new ButtonComponent("Total");
     ButtonComponent helpButton = new ButtonComponent("Help");
@@ -55,7 +55,7 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
 
     public TicketIssuingWindow() {
         super("Train Ticket Price Calculator");
-        prepareGUI(430,580);
+        prepareGUI(430, 580);
     }
 
     @Override

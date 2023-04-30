@@ -14,20 +14,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class TotalTicketsWindow extends FrameComponent implements ActionListener, FrameCreatable {
+public class TotalTicketsWindow extends FrameComponent implements ActionListener {
     PanelComponent buttonPanel = new PanelComponent(false);
     TextAreaComponent ticketDetailsTextArea = new TextAreaComponent(20, 1);
-    ScrollPaneComponent textAreaScrollPane = new ScrollPaneComponent(true,ticketDetailsTextArea);
+    ScrollPaneComponent textAreaScrollPane = new ScrollPaneComponent(true, ticketDetailsTextArea);
     ButtonComponent backButton = new ButtonComponent("Back");
     ButtonComponent clearButton = new ButtonComponent("Clear");
 
     TotalTicketsWindow() {
         super("Train Ticket Price Calculator");
-        prepareGUI(400,600);
+        prepareGUI(400, 600);
     }
 
     @Override
-    public void prepareGUI(int width, int height){
+    public void prepareGUI(int width, int height) {
         this.setSize(width, height);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(textAreaScrollPane);
