@@ -6,7 +6,6 @@ import com.ttpc.components.LabelComponent;
 import com.ttpc.components.RadioButtonComponent;
 import com.ttpc.components.TextFieldComponent;
 import com.ttpc.components.ButtonComponent;
-import com.ttpc.interfaces.FrameCreatable;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -34,7 +33,7 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     LabelComponent destinationLabel = new LabelComponent("Destination", 16);
     JComboBox<String> stationComboBox = new JComboBox<>();
     LabelComponent classLabel = new LabelComponent("Class", 16);
-    RadioButtonComponent firstClassRadioButton = new RadioButtonComponent("First Class", false);
+    RadioButtonComponent firstClassRadioButton = new RadioButtonComponent("First Class", true);
     RadioButtonComponent secondClassRadioButton = new RadioButtonComponent("Second Class", true);
     RadioButtonComponent thirdClassRadioButton = new RadioButtonComponent("Third Class", true);
     ButtonGroup classRadioButtons = new ButtonGroup();
@@ -143,8 +142,12 @@ public class TicketIssuingWindow extends FrameComponent implements ActionListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-            if (Integer.parseInt(halfAmountTextField.getText()) == 0 && Integer.parseInt(fullAmountTextField.getText()) == 0) {
-                JOptionPane.showMessageDialog(this, "Both fields cannot be zero.\nPlease enter a valid value in at least one of the fields", "TTPC", JOptionPane.INFORMATION_MESSAGE);
+            // check fields are empty
+            boolean isFieldEmpty = halfAmountTextField.getText().isBlank() || fullAmountTextField.getText().isBlank();
+            // check both fields have zero
+            boolean isBothZero = halfAmountTextField.getText().equals("0") && fullAmountTextField.getText().equals("0");
+            if (isFieldEmpty || isBothZero) {
+                JOptionPane.showMessageDialog(this, "Both fields cannot be zero or empty.\nPlease enter a valid value in at least one of the fields", "TTPC", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 this.setEnabled(false);
                 int destinationIndex = stationComboBox.getSelectedIndex();

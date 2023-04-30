@@ -5,7 +5,6 @@ import com.ttpc.components.PanelComponent;
 import com.ttpc.components.TextAreaComponent;
 import com.ttpc.components.ScrollPaneComponent;
 import com.ttpc.components.ButtonComponent;
-import com.ttpc.interfaces.FrameCreatable;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

@@ -51,7 +51,7 @@ public class PriceCalculator {
     }
 
     private double ticketQtyCalculate(int fullTicketsAmount, int halfTicketsAmount){
-        return fullTicketsAmount * halfTicketsAmount * 0.5;
+        return fullTicketsAmount + halfTicketsAmount * 0.5;
     }
 
     private double ticketPriceCalculate(double ticketQ, double price){
@@ -81,8 +81,8 @@ public class PriceCalculator {
                 "To: " + endStationName + "\n" +
                 "Trip Distance: " + distance + "km" + "\n" +
                 "Class: " + ticketClass + "\n" +
-                "Ticket Qty: " + finalTicketPrice + "\n" +
-                "Total Price: " + "LKR " + ticketPrice + "\n\n" +
+                "Ticket Qty: " + ticketQty + "\n" +
+                "Total Price: " + "LKR " + finalTicketPrice + "\n\n" +
                 "------------------------------------------\n\n";
     }
 
